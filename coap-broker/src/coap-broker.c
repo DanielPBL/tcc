@@ -43,8 +43,6 @@ time_t 				earliest_data_max_age = LONG_MAX;
 static int 			quit = 0;
 static void			handleSIGINT(int signum);
 
-/* Usage info display */
-static void usage( const char *program, const char *version);
 static ssize_t cmdline_read_key(char *arg, unsigned char *buf, size_t maxlen);
 static coap_context_t* get_context(const char *node, const char *port);
 static uint8_t handle_cbor(coap_pdu_t *pdu, size_t *len,
@@ -103,7 +101,6 @@ int main(int argc, char* argv[]) {
 					printf("Resource Directory Enabled\n");
 					rd_server = 1;
 				} else {
-					usage(argv[0], PACKAGE_VERSION);
 					exit(1);
 				}
 				break;
@@ -116,7 +113,6 @@ int main(int argc, char* argv[]) {
 				oauth = 1;
 				break;
 			default:
-				usage(argv[0], PACKAGE_VERSION);
 				exit(1);
 		}
 	}
@@ -1312,19 +1308,3 @@ static void	handleSIGINT(int signum) {
 	exit(0);
 }
 
-static void usage( const char *program, const char *version) {
-	const char *p;
-
-	p = strrchr( program, '/' );
-	if ( p ) program = ++p;
-
-	fprintf( stderr, "%s v%s -- Final Project, a CoAP Broker implementation\n"
-		"(c) 2017 Aldwin Hermanudin<aldwin@hermanudin.com>\n\n"
-		"usage: %s [-e addtional-server] [-v verbose]\n\n"
-		"\t-e server\tenable additional server. mqtt for mqtt bridge. rd for resource directory\n"
-		"\t-v num\t\tverbosity level (default: 3)\n"
-		"\n"
-		"examples:\n"
-		"\t%s -e mqtt -e rd -v 9\n"
-		,program, version, program,program );
-}
