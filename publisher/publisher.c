@@ -318,7 +318,7 @@ cwt_handler(struct coap_context_t *ctx,
             struct cbor_load_result result;
             cwt = cbor_load(databuf, len, &result);
             if (cwt == NULL) {
-                printf("DEU MERDA\n");
+                printf("Algo deu errado!\n");
             }
         }
     } else {      /* no 2.05 */

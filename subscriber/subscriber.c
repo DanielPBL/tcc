@@ -165,7 +165,7 @@ bool get_cwt(coap_response_handler_t handler) {
     char link[500];
 
     //Pede CWT ao AS
-    snprintf(link, sizeof(link), "coaps://[%s]:%s/auths", AS_HOST, AS_PORT);
+    snprintf(link, sizeof(link), "coaps://[%s]:%s/token", AS_HOST, AS_PORT);
     cmdline_uri(link, &optlist, &uri);
     session = init_session(&ctx, &uri, handler, USER, (uint8_t *)PSK, strlen(PSK));
     if (session == NULL) {
@@ -249,7 +249,7 @@ cwt_handler(struct coap_context_t *ctx,
             struct cbor_load_result result;
             cwt = cbor_load(databuf, len, &result);
             if (cwt == NULL) {
-                printf("DEU MERDA\n");
+                printf("Algo deu errado!\n");
             }
         }
     } else {      /* no 2.05 */
